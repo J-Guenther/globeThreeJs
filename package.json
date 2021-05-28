@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
-    "build-gh-pages": "ng build --prod --output-path docs/ --base-href /globeThreeJs/",
+    "build": "ng build",
+    "build-gh-pages": "ng build --output-path docs/ --base-href /globeThreeJs/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
