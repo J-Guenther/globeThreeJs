@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as THREE from 'three';
 
 @Component({
   selector: 'app-globe',
@@ -7,18 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobeComponent implements OnInit {
 
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera( 75, 2, 0.1, 1000 );
+    const canvas = document.querySelector(".threeContainer canvas");
+    this.renderScene(canvas)
+  }
 
-    const renderer = new THREE.WebGLRenderer({canvas: document.querySelector(".threeContainer canvas")});
+  renderScene(canvas): void {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 2, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas: canvas});
 
     const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    const cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    const material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
 
     camera.position.z = 5;
 
@@ -43,25 +50,14 @@ export class GlobeComponent implements OnInit {
 
       resizeCanvasToDisplaySize();
 
-      requestAnimationFrame( animate );
+      requestAnimationFrame(animate);
 
       cube.rotation.x += 0.01;
       cube.rotation.y += 0.01;
 
-      renderer.render( scene, camera );
+      renderer.render(scene, camera);
     };
 
-    if ( WEBGL.isWebGLAvailable() ) {
-
-      // Initiate function or other initializations here
-      animate();
-
-    } else {
-
-      const warning = WEBGL.getWebGLErrorMessage();
-      document.getElementById( 'container' ).appendChild( warning );
-
-    }
+    animate();
   }
-
 }

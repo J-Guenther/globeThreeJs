@@ -1,1 +1,8 @@
-<app-globe></app-globe>
+<app-globe *ngIf="webGlAvailable"></app-globe>
+<div class="availabilityTest">
+  <canvas></canvas>
+</div>
+<div class="webGlError" [hidden]="webGlAvailable" [innerHTML]="warning">
+</div>
+
+
